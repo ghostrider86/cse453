@@ -18,9 +18,6 @@ import platform
 
 # user enters the file paths to compare
 def test_input():
-    file_1 = ""
-    file_2 = ""
-
     print("Specify the first filename")
     file_path_1 = input(": ")
     
