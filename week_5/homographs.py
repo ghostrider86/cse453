@@ -31,11 +31,11 @@ def canon_file(path):
     temporary = ''
     outcome = ''
     if(platform.system() == 'Windows'):
-        slash = '/'
+        slash = '\\'
     else:
-        slash = '\''
-    file_directorie = path.split(slash)
-    for x in file_directorie:
+        slash = '/'
+    file_directory = path.split(slash)
+    for x in file_directory:
         if(x == ".."):
             if(x != temporary):
                 temporary = canon.pop()
@@ -43,6 +43,7 @@ def canon_file(path):
             canon.append(x)
     for x in range(len(canon)):
         outcome += f'{canon[x]}{slash}'
+    print(outcome)
     return outcome
 
 # Verifies if two files are homographs
@@ -61,11 +62,12 @@ def test_homograph(file_path_1, file_path_2):
 # Forbidden Path: /home/user/secret/password.txt
 
 def homographs():
-    forbiddenPath = "/home/user/secret/password.txt"
-    test1 = "/home/../home/../home/user/secret/password.txt"
-    test2 = "/home/user/../../home/user/secret/password.txt"
-    test3 = "/home/user/./secret/password.txt"
-    test4 = "/home/../home/../home/user/./secret/password.txt"
+    forbiddenPath = "\\home\\user\\secret\\password.txt"
+    test1 = "\\home\\..\\home\\..\\home\\user\\secret\\password.txt"
+    test2 = "\\home\\user\\..\\..\\home\\user\\secret\\password.txt"
+    test3 = "\\home\\user\\.\\secret\\password.txt"
+    test4 = "\\home\\..\\home\\..\\home\\user\\.\\secret\\password.txt"
+    test5 = "\\home\\..\\home\\..\\home\\user\\.\\.\\.\\.\\.\\..\\user\\secret\\password.txt"
     print ("==========================================")
     print("Homographs tests")
 
@@ -83,27 +85,34 @@ def homographs():
     #back directory and current directory
     print("Test 4 : " + test4)
     test_homograph(forbiddenPath, test4)
+    #back directory and current directory many times
+    print("Test 5 : " + test5)
+    test_homograph(forbiddenPath, test5)
     print ("==========================================")
 
 # various tests of Non-Homograph paths
 def non_Homographs():
-    forbiddenPath = "/home/user/secret/password.txt"
-    test_5 = "home/user/secret/password.txt"
-    test_6 = "/home/user/.././secret/password.txt"
-    test_7 = "/home/../user/secret/password.txt"
+    forbiddenPath = "\\home\\user\\secret\\password.txt"
+    test_6 = "home\\user\\secret\\password.txt"
+    test_7 = "\\home\\user\\..\\.\\secret\\password.txt"
+    test_8 = "\\home\\..\\user\\secret\\password.txt"
+    test_9 = "\\.\\password.txt"
     print ("==========================================")
     print("Non-Homographs tests")
     #The following test cases verify if some file conditions are not homographs
 
     #wrong path
-    print("Test 5 : " + test_5)
-    test_homograph(forbiddenPath, test_5)
-    #The back directory and current directory
     print("Test 6 : " + test_6)
     test_homograph(forbiddenPath, test_6)
-    #only use the back directory
+    #The back directory and current directory
     print("Test 7 : " + test_7)
     test_homograph(forbiddenPath, test_7)
+    #only use the back directory
+    print("Test 8 : " + test_8)
+    test_homograph(forbiddenPath, test_8)
+    #only use the current directory
+    print("Test 9 : " + test_9)
+    test_homograph(forbiddenPath, test_9)
     print ("==========================================")
 
 def main_menu ():
