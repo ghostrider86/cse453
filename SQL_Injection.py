@@ -32,8 +32,15 @@ def weak_mitigation_query(username, password):
     print(query)
     return query
 
+# Provide strong mitigation by refusing any input containing single quotes
 def strong_mitigation_query(username, password):
-    pass
+    if "'" in username or password:
+        print("Invalid username or password")
+        return
+    else:
+        query = "SELECT authenticate FROM users \nWHERE Username=" + "'" + username + "' AND Password=" + "'" + password + "';"
+        print(query)
+        return query
 
 # Main
 make_query("name", "wordpass")
